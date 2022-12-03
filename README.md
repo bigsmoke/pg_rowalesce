@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.0
-pg_readme_generated_at: 2022-12-02 12:24:36.85251+00
-pg_readme_version: 0.1.0
+pg_extension_version: 0.1.1
+pg_readme_generated_at: 2022-12-03 10:17:40.917865+00
+pg_readme_version: 0.1.1
 ---
 
 # The `pg_rowalesce` PostgreSQL extension
@@ -98,13 +98,13 @@ SELECT pg_rowalesce_relocate();
 
 ### Routines
 
-#### Function: `public.insert_row(anyelement)`
+#### Function: `rowalesce.insert_row(anyelement)`
 
 Wraps around `INSERT INTO … RETURNING` so that it's friendlier to use in some contexts.
 
-#### Function: `public.pg_rowalesce_readme()`
+#### Function: `rowalesce.pg_rowalesce_readme()`
 
-#### Function: `public.record_rowalesce_with_defaults(record,anyarray)`
+#### Function: `rowalesce.record_rowalesce_with_defaults(record,anyarray)`
 
 This function could not be named plain `rowalesce_with-defaults()`, because
 Postgres considers `rowalesce_with_defaults(record, variadic anyarray)`
@@ -114,15 +114,15 @@ directly and feeding it a `hstore(record)`.  Yet, I decided to keep it (for
     now) for documentation sake.  I may still change my mind in a later release
 (but not any more after 1.0).
 
-#### Function: `public.rowalesce(anyarray)`
+#### Function: `rowalesce.rowalesce(anyarray)`
 
 Coalesce the column/field values in the order of the argument records given.
 
 Each argument must be of the same _explicit_ row type.
 
-#### Function: `public.rowalesce(anyelement,jsonb)`
+#### Function: `rowalesce.rowalesce(anyelement,jsonb)`
 
-#### Function: `public.rowalesce(jsonb,anyarray)`
+#### Function: `rowalesce.rowalesce(jsonb,anyarray)`
 
 Coalesce the `JSONB` (first) argument with an arbitrary number of
 explicitly-typed record/row arguments.
@@ -137,7 +137,7 @@ select rowalesce(
 );
 ```
 
-#### Function: `public.rowalesce(public.hstore,anyarray)`
+#### Function: `rowalesce.rowalesce(public.hstore,anyarray)`
 
 Coalesces the fields in the `hstore` with the field values from each successive
 record-type argument.
@@ -192,19 +192,19 @@ end;
 $$;
 ```
 
-#### Function: `public.rowalesce_with_defaults(anyarray)`
+#### Function: `rowalesce.rowalesce_with_defaults(anyarray)`
 
 Coalesces the column values in the order of the records given and fall back to column defaults. The argument may be `NULL` (coerced to the correct type) if you just want the column defaults for a table type.
 
-#### Function: `public.rowalesce_with_defaults(jsonb,anyarray)`
+#### Function: `rowalesce.rowalesce_with_defaults(jsonb,anyarray)`
 
-#### Function: `public.rowalesce_with_defaults(public.hstore,anyarray)`
+#### Function: `rowalesce.rowalesce_with_defaults(public.hstore,anyarray)`
 
-#### Function: `public.table_defaults(regclass,public.hstore)`
+#### Function: `rowalesce.table_defaults(regclass,public.hstore)`
 
 Get the (given) column default values for the given table.
 
-#### Procedure: `public.test__pg_rowalesce()`
+#### Procedure: `rowalesce.test__pg_rowalesce()`
 
 ## Colophon
 

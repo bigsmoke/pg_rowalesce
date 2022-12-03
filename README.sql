@@ -3,8 +3,12 @@
 
 begin;
 
-create extension pg_rowalesce cascade;
+create schema rowalesce;
 
-select pg_rowalesce_readme();
+create extension pg_rowalesce
+    with schema rowalesce
+    cascade;
+
+select rowalesce.pg_rowalesce_readme();
 
 rollback;

@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.1
-pg_readme_generated_at: 2022-12-03 10:17:40.917865+00
-pg_readme_version: 0.1.1
+pg_extension_version: 0.1.2
+pg_readme_generated_at: 2022-12-13 15:07:19.93+00
+pg_readme_version: 0.2.0
 ---
 
 # The `pg_rowalesce` PostgreSQL extension

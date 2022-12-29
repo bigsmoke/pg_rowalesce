@@ -1,0 +1,53 @@
+{
+    "name": "pg_rowalesce",
+    "tags": [
+        "coalesce",
+        "jsonb",
+        "plpgsql",
+        "function",
+        "functions",
+        "table"
+    ],
+    "license": "gpl_3",
+    "prereqs": {
+        "test": {
+            "requires": {
+                "pgtap": 0
+            }
+        },
+        "runtime": {
+            "requires": {
+                "hstore": 0
+            }
+        }
+    },
+    "version": "0.1.3",
+    "abstract": "rowalesce() is like coalesce(), but for rows and other composite types.",
+    "provides": {
+        "pg_rowalesce": {
+            "file": "pg_rowalesce--0.1.0.sql",
+            "docfile": "README.md",
+            "version": "0.1.3"
+        }
+    },
+    "meta-spec": {
+        "url": "https://pgxn.org/spec/",
+        "version": "1.0.0"
+    },
+    "resources": {
+        "homepage": "https://blog.bigsmoke.us/tag/pg_rowalesce",
+        "bugtracker": {
+            "web": "https://github.com/bigsmoke/pg_rowalesce/issues"
+        },
+        "repository": {
+            "url": "https://github.com/bigsmoke/pg_rowalesce.git",
+            "web": "https://github.com/bigsmoke/pg_rowalesce",
+            "type": "git"
+        }
+    },
+    "maintainer": [
+        "Rowan Rodrik van der Molen <rowan@bigsmoke.us>"
+    ],
+    "description": "The pg_rowalesce PostgreSQL extensions its defining feature is the rowalesce() function. rowalesce() is like coalesce(), but for rows and other composite types. From its arbitrary number of argument rows, for each field/column, rowalesce() takes the value from the first row for which that particular field/column has a not null value.",
+    "generated_by": "`select pg_rowalesce_meta_pgxn()`"
+}

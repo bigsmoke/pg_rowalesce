@@ -9,7 +9,7 @@
 do $$
 begin
     execute 'ALTER DATABASE ' || current_database()
-        || ' SET pg_mockable.readme_url TO '
+        || ' SET pg_rowalesce.readme_url TO '
         || quote_literal('https://github.com/bigsmoke/pg_rowalesce/blob/master/README.md');
 end;
 $$;

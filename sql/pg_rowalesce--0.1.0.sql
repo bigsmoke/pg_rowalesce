@@ -180,13 +180,13 @@ begin
     end loop;
 end;
 $$;
+
 comment
     on function rowalesce(variadic anyarray)
     is $markdown$
 Coalesce the column/field values in the order of the argument records given.
 
 Each argument must be of the same _explicit_ row type.
-
 $markdown$;
 
 --------------------------------------------------------------------------------------------------------------
@@ -204,6 +204,7 @@ begin
     $3 := rowalesce(variadic jsonb_populate_record($3, $1) || $2);
 end;
 $$;
+
 comment
     on function rowalesce(jsonb, variadic anyarray)
     is $markdown$
@@ -234,6 +235,7 @@ begin
     $3 := rowalesce(variadic populate_record($3, $1) || $2);
 end;
 $$;
+
 comment
     on function rowalesce(hstore, variadic anyarray)
     is $markdown$
@@ -348,6 +350,7 @@ begin
     return hstore(_record);
 end;
 $$;
+
 comment
     on function table_defaults(regclass, hstore)
     is 'Get the (given) column default values for the given table.';
@@ -373,6 +376,7 @@ begin
     );
 end;
 $$;
+
 comment
     on function rowalesce_with_defaults(variadic anyarray)
     is 'Coalesces the column values in the order of the records given and fall back to column defaults.'
@@ -420,6 +424,7 @@ begin
     $3 := rowalesce_with_defaults(hstore($1), variadic $2);
 end;
 $$;
+
 comment
     on function record_rowalesce_with_defaults(record, variadic anyarray)
     is $markdown$
@@ -430,7 +435,6 @@ add much to calling `rowalesce_with_defaults(hstore, variadic anyarray)`
 directly and feeding it a `hstore(record)`.  Yet, I decided to keep it (for
     now) for documentation sake.  I may still change my mind in a later release
 (but not any more after 1.0).
-
 $markdown$;
 
 --------------------------------------------------------------------------------------------------------------
@@ -470,6 +474,7 @@ begin
         into $1;  -- This overrides the local _copy of_ the input parameter, not the (IN) param itself!
 end;
 $$;
+
 comment
     on function insert_row(inout anyelement)
     is 'Wraps around `INSERT INTO … RETURNING` so that it''s friendlier to use in some contexts.';

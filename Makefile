@@ -5,7 +5,7 @@ DISTVERSION = $(shell sed -n -E "/default_version/ s/^.*'(.*)'.*$$/\1/p" $(EXTEN
 
 DATA = $(wildcard sql/$(EXTENSION)*.sql)
 
-REGRESS = $(EXTENSION)
+REGRESS = tap_tests
 
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)

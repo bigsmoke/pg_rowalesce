@@ -1,7 +1,7 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.3
-pg_readme_generated_at: 2022-12-29 22:09:05.241258+00
+pg_extension_version: 0.1.4
+pg_readme_generated_at: 2022-12-30 14:27:33.942106+00
 pg_readme_version: 0.3.4
 ---
 

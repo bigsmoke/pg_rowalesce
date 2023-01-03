@@ -1,4 +1,3 @@
-# It technically _is_ a dir, but this works well enough to get its name:
 EXTENSION = pg_rowalesce
 
 DISTVERSION = $(shell sed -n -E "/default_version/ s/^.*'(.*)'.*$$/\1/p" $(EXTENSION).control)

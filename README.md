@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.4
-pg_readme_generated_at: 2022-12-30 14:27:33.942106+00
-pg_readme_version: 0.3.4
+pg_extension_version: 0.1.5
+pg_readme_generated_at: 2023-01-03 09:07:12.073944+00
+pg_readme_version: 0.3.6
 ---
 
 # The `pg_rowalesce` PostgreSQL extension
@@ -112,7 +112,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `pg_rowalesce_meta_pgxn ()`
 
@@ -131,7 +131,7 @@ Function attributes: `STABLE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `pg_rowalesce_readme ()`
 
@@ -139,7 +139,7 @@ Function return type: `text`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
   *  `SET pg_readme.include_view_definitions TO true`
   *  `SET pg_readme.include_routine_definitions TO false`
 
@@ -164,7 +164,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `rowalesce (anyarray)`
 
@@ -184,7 +184,7 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `rowalesce (anyelement, jsonb)`
 
@@ -201,7 +201,7 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `rowalesce (hstore, anyarray)`
 
@@ -271,7 +271,7 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `rowalesce (jsonb, anyarray)`
 
@@ -301,7 +301,7 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `rowalesce_with_defaults (anyarray)`
 
@@ -317,7 +317,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `rowalesce_with_defaults (hstore, anyarray)`
 
@@ -332,7 +332,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `rowalesce_with_defaults (jsonb, anyarray)`
 
@@ -347,7 +347,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Function: `table_defaults (regclass, hstore)`
 
@@ -364,13 +364,13 @@ Function return type: `hstore`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
 
 #### Procedure: `test__pg_rowalesce ()`
 
 Procedure-local settings:
 
-  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
+  *  `SET search_path TO rowalesce, public, pg_temp`
   *  `SET plpgsql.check_asserts TO true`
 
 ## Colophon

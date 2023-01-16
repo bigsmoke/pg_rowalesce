@@ -21,13 +21,13 @@
             }
         }
     },
-    "version": "0.1.5",
+    "version": "0.1.6",
     "abstract": "rowalesce() is like coalesce(), but for rows and other composite types.",
     "provides": {
         "pg_rowalesce": {
             "file": "pg_rowalesce--0.1.0.sql",
             "docfile": "README.md",
-            "version": "0.1.5"
+            "version": "0.1.6"
         }
     },
     "meta-spec": {

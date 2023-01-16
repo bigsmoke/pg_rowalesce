@@ -1,13 +1,13 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.5
-pg_readme_generated_at: 2023-01-03 09:07:12.073944+00
-pg_readme_version: 0.3.6
+pg_extension_version: 0.1.6
+pg_readme_generated_at: 2023-01-16 20:11:33.270296+00
+pg_readme_version: 0.4.0
 ---
 
 # The `pg_rowalesce` PostgreSQL extension
 
-The `pg_rowalesce` PostgreSQL extensions its defining feature is the
+The `pg_rowalesce` PostgreSQL extension its defining feature is the
 `rowalesce()` function.  `rowalesce()` is like `coalesce()`, but for rows and
 other composite types.  From its arbitrary number of argument rows, for each
 field/column, `rowalesce()` takes the value from the first row for which that

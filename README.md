@@ -1,7 +1,7 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.7
-pg_readme_generated_at: 2023-01-31 19:04:55.841746+00
+pg_extension_version: 0.1.8
+pg_readme_generated_at: 2023-01-31 21:04:32.489951+00
 pg_readme_version: 0.5.6
 ---
 
@@ -141,7 +141,7 @@ Function-local settings:
 
   *  `SET search_path TO rowalesce, public, pg_temp`
   *  `SET pg_readme.include_view_definitions TO true`
-  *  `SET pg_readme.include_routine_definitions TO false`
+  *  `SET pg_readme.include_routine_definitions_like TO {test__%}`
 
 #### Function: `record_rowalesce_with_defaults (record, anyarray)`
 
@@ -372,6 +372,80 @@ Procedure-local settings:
 
   *  `SET search_path TO rowalesce, public, pg_temp`
   *  `SET plpgsql.check_asserts TO true`
+
+```sql
+CREATE OR REPLACE PROCEDURE rowalesce.test__pg_rowalesce()
+ LANGUAGE plpgsql
+ SET search_path TO 'rowalesce', 'public', 'pg_temp'
+ SET "plpgsql.check_asserts" TO 'true'
+AS $procedure$
+declare
+    _rec record;
+begin
+    create local temporary table _tbl (
+        col1 int default 9
+        ,col2 text default 'iets'
+        ,col3 bool default true
+        ,col4 timestamptz default now()
+    );
+
+    assert table_defaults('_tbl'::name::regclass)::text
+        = hstore('"col1"=>"9","col2"=>"iets","col3"=>"t",col4=>"' || now()::text || '"')::text;
+
+    assert rowalesce(
+        row(4, null, null, now())::_tbl,
+        row(5, 'blah', null, now() + interval '1 day')::_tbl
+    ) = row(4, 'blah', null, now())::_tbl;
+    assert rowalesce_with_defaults(
+        row(4, null, null, now())::_tbl,
+        row(5, 'blah', null, now() + interval '1 day')::_tbl
+    ) = row(4, 'blah', true, now())::_tbl;
+
+    assert rowalesce(
+        '{"col1": 4, "col4": "2022-01-01"}'::jsonb,
+        null::_tbl,
+        row(null, null, false, null)::_tbl
+    ) = row(4, null, false, '2022-01-01'::timestamptz)::_tbl;
+    assert rowalesce_with_defaults(
+        '{"col1": 4, "col4": "2022-01-01"}'::jsonb,
+        null::_tbl
+    ) = row(4, 'iets', true, '2022-01-01'::timestamptz)::_tbl;
+
+    assert rowalesce(
+        '{"col1": 4, "col4": "2022-01-01"}'::jsonb,
+        row(5, 'blah', null, '2022-12-31'::timestamptz)::_tbl,
+        null::_tbl,
+        null::_tbl
+    ) = row(4, 'blah', null, '2022-01-01'::timestamptz)::_tbl;
+    assert rowalesce_with_defaults(
+        '{"col4": "2022-01-01"}'::jsonb,
+        row(null, 'blah', null, '2022-12-31'::timestamptz)::_tbl,
+        null::_tbl,
+        null::_tbl
+    ) = row(9, 'blah', true, '2022-01-01'::timestamptz)::_tbl;
+
+    assert rowalesce(
+        'col1=>4,col4=>"2022-01-01"'::hstore,
+        row(5, 'blah', null, '2022-12-31'::timestamptz)::_tbl
+    ) = row(4, 'blah', null, '2022-01-01'::timestamptz)::_tbl;
+    assert rowalesce_with_defaults(
+        'col1=>4,col4=>"2022-01-01"'::hstore,
+        row(5, 'blah', null, '2022-12-31'::timestamptz)::_tbl
+    ) = row(4, 'blah', true, '2022-01-01'::timestamptz)::_tbl;
+
+    /*
+    assert record_rowalesce_with_defaults(
+        _rec,
+        row(5, 'blah', null, now() + interval '1 day')::_tbl
+    ) = row(4, 'blah', true, now())::_tbl;
+    */
+
+    raise transaction_rollback;  -- I could have use any error code, but this one seemed to fit best.
+exception
+    when transaction_rollback then
+end;
+$procedure$
+```
 
 ## Colophon
 

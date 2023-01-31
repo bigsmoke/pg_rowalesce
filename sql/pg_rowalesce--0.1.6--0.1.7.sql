@@ -3,6 +3,7 @@
 
 --------------------------------------------------------------------------------------------------------------
 
+-- Change license from AGPL 3.0 to PostgreSQL.
 create or replace function pg_rowalesce_meta_pgxn()
     returns jsonb
     stable
@@ -91,6 +92,7 @@ create or replace function pg_rowalesce_meta_pgxn()
         ]
     );
 
+-- Retain copy-paste error in URL. 🤦
 comment
     on function pg_rowalesce_meta_pgxn()
     is $markdown$
@@ -101,7 +103,7 @@ The `Makefile` includes a recipe to allow the developer to: `make META.json` to
 refresh the meta file with the function's current output, including the
 `default_version`.
 
-`pg_rowalesce` can be found on PGXN: https://pgxn.org/dist/pg_readme/
+`pg_rowalesce` can be found on PGXN: https://pgxn.org/dist/pg_rowalesce/
 $markdown$;
 
 --------------------------------------------------------------------------------------------------------------

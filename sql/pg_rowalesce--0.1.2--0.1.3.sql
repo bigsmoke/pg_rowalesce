@@ -3,12 +3,31 @@
 
 --------------------------------------------------------------------------------------------------------------
 
--- Allow `readme.pg_extension_readme()` for other extensions to link to objects in this extension.
 do $$
+declare
+    _ddl_cmd_to_set_pg_readme_url text;
 begin
-    execute 'ALTER DATABASE ' || current_database()
-        || ' SET pg_rowalesce.readme_url TO '
-        || quote_literal('https://github.com/bigsmoke/pg_rowalesce/blob/master/README.md');
+    -- In the original 0.1.2 release, the setting name was set to `pg_mockable.readme_url` due to a copy-paste
+    -- mistake.  Fixed it both there and in this subsequent upgrade script.  (I know that it's unlikely that
+    -- someone was running 0.1.2, but one has to be hygienic about these things.)
+    _ddl_cmd_to_set_pg_readme_url := 'ALTER DATABASE ' || current_database()
+        || ' SET pg_rowalesce.readme_url = ''https://github.com/bigsmoke/pg_rowalesce/blob/master/README.md''';
+    execute _ddl_cmd_to_set_pg_readme_url;
+exception
+    when insufficient_privilege then
+        -- We say `superuser = false` in the control file; so let's just whine a little instead of crashing.
+        raise warning using
+            message = format(
+                'Because you''re installing the pg_rowalesce extension as non-superuser and because you'
+                || ' are also not the owner of the %I DB, the database-level `pg_rowalesce.readme_url`'
+                || ' setting has not been set.',
+                current_database()
+            )
+            ,detail = 'Settings of the form `<extension_name>.readme_url` are used by the `pg_readme`'
+                || ' extension to cross-link between extensions their README files.'
+            ,hint = 'If you want full inter-extension README cross-linking, you can ask your friendly'
+                || E' neighbourhood DBA to execute the following statement:\n'
+                || _ddl_cmd_to_set_pg_readme_url || ';';
 end;
 $$;
 

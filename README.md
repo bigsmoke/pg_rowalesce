@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.6
-pg_readme_generated_at: 2023-01-16 20:11:33.270296+00
-pg_readme_version: 0.4.0
+pg_extension_version: 0.1.7
+pg_readme_generated_at: 2023-01-31 19:04:55.841746+00
+pg_readme_version: 0.5.6
 ---
 
 # The `pg_rowalesce` PostgreSQL extension
@@ -114,7 +114,7 @@ Function-local settings:
 
   *  `SET search_path TO rowalesce, public, pg_temp`
 
-#### Function: `pg_rowalesce_meta_pgxn ()`
+#### Function: `pg_rowalesce_meta_pgxn()`
 
 Returns the JSON meta data that has to go into the `META.json` file needed for
 [PGXN—PostgreSQL Extension Network](https://pgxn.org/) packages.
@@ -133,7 +133,7 @@ Function-local settings:
 
   *  `SET search_path TO rowalesce, public, pg_temp`
 
-#### Function: `pg_rowalesce_readme ()`
+#### Function: `pg_rowalesce_readme()`
 
 Function return type: `text`
 
@@ -366,7 +366,7 @@ Function-local settings:
 
   *  `SET search_path TO rowalesce, public, pg_temp`
 
-#### Procedure: `test__pg_rowalesce ()`
+#### Procedure: `test__pg_rowalesce()`
 
 Procedure-local settings:
 
@@ -375,4 +375,4 @@ Procedure-local settings:
 
 ## Colophon
 
-This `README.md` for the `pg_rowalesce` `extension` was automatically generated using the [`pg_readme`](https://github.com/bigsmoke/pg_readme) PostgreSQL extension.
+This `README.md` for the `pg_rowalesce` extension was automatically generated using the [`pg_readme`](https://github.com/bigsmoke/pg_readme) PostgreSQL extension.

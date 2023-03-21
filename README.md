@@ -1,8 +1,8 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.8
-pg_readme_generated_at: 2023-01-31 21:04:32.489951+00
-pg_readme_version: 0.5.6
+pg_extension_version: 0.1.9
+pg_readme_generated_at: 2023-03-21 11:49:40.888603+00
+pg_readme_version: 0.6.1
 ---
 
 # The `pg_rowalesce` PostgreSQL extension
@@ -159,6 +159,7 @@ Function arguments:
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` |       `IN` |                                                                   | `record`                                                             |  |
 |   `$2` | `VARIADIC` |                                                                   | `anyarray`                                                           |  |
+|   `$3` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -177,6 +178,7 @@ Function arguments:
 | Arg. # | Arg. mode  | Argument name                                                     | Argument type                                                        | Default expression  |
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` | `VARIADIC` |                                                                   | `anyarray`                                                           |  |
+|   `$2` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -194,6 +196,7 @@ Function arguments:
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` |       `IN` |                                                                   | `anyelement`                                                         |  |
 |   `$2` |       `IN` |                                                                   | `jsonb`                                                              |  |
+|   `$3` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -264,6 +267,7 @@ Function arguments:
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` |       `IN` |                                                                   | `hstore`                                                             |  |
 |   `$2` | `VARIADIC` |                                                                   | `anyarray`                                                           |  |
+|   `$3` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -294,6 +298,7 @@ Function arguments:
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` |       `IN` |                                                                   | `jsonb`                                                              |  |
 |   `$2` | `VARIADIC` |                                                                   | `anyarray`                                                           |  |
+|   `$3` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -312,6 +317,7 @@ Function arguments:
 | Arg. # | Arg. mode  | Argument name                                                     | Argument type                                                        | Default expression  |
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` | `VARIADIC` |                                                                   | `anyarray`                                                           |  |
+|   `$2` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -327,6 +333,7 @@ Function arguments:
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` |       `IN` |                                                                   | `hstore`                                                             |  |
 |   `$2` | `VARIADIC` |                                                                   | `anyarray`                                                           |  |
+|   `$3` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -342,6 +349,7 @@ Function arguments:
 | ------ | ---------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------- |
 |   `$1` |       `IN` |                                                                   | `jsonb`                                                              |  |
 |   `$2` | `VARIADIC` |                                                                   | `anyarray`                                                           |  |
+|   `$3` |      `OUT` |                                                                   | `anyelement`                                                         |  |
 
 Function return type: `anyelement`
 
@@ -389,17 +397,22 @@ begin
         ,col4 timestamptz default now()
     );
 
-    assert table_defaults('_tbl'::name::regclass)::text
+    assert table_defaults('_tbl')::text
         = hstore('"col1"=>"9","col2"=>"iets","col3"=>"t",col4=>"' || now()::text || '"')::text;
 
+    assert table_defaults('_tbl', ''::hstore) = ''::hstore
+        ,'table_defaults() should be okay with having nothing to do.';
+
     assert rowalesce(
-        row(4, null, null, now())::_tbl,
-        row(5, 'blah', null, now() + interval '1 day')::_tbl
-    ) = row(4, 'blah', null, now())::_tbl;
+            row(4, null, null, now())::_tbl
+            ,row(5, 'blah', null, now() + interval '1 day')::_tbl
+        ) = row(4, 'blah', null, now())::_tbl
+        ,'NULL values (and _only_ NULL values) should be rowalesced.';
     assert rowalesce_with_defaults(
-        row(4, null, null, now())::_tbl,
-        row(5, 'blah', null, now() + interval '1 day')::_tbl
-    ) = row(4, 'blah', true, now())::_tbl;
+            row(4, null, null, now())::_tbl
+            ,row(5, 'blah', null, now() + interval '1 day')::_tbl
+        ) = row(4, 'blah', true, now())::_tbl
+        ,'NULL values in arguments should be rowalesced, and fall back to table defaults.';
 
     assert rowalesce(
         '{"col1": 4, "col4": "2022-01-01"}'::jsonb,

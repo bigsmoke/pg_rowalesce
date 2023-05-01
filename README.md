@@ -1,7 +1,7 @@
 ---
 pg_extension_name: pg_rowalesce
-pg_extension_version: 0.1.9
-pg_readme_generated_at: 2023-03-21 11:49:40.888603+00
+pg_extension_version: 0.1.10
+pg_readme_generated_at: 2023-05-01 17:27:33.464643+01
 pg_readme_version: 0.6.1
 ---
 
@@ -100,7 +100,7 @@ SELECT pg_rowalesce_relocate();
 
 #### Function: `insert_row (anyelement)`
 
-Wraps around `INSERT INTO … RETURNING` so that it's friendlier to use in some contexts.
+Wraps around `INSERT INTO … RETURNING` so that it''s friendlier to use in some contexts.
 
 Function arguments:
 
@@ -112,12 +112,11 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `pg_rowalesce_meta_pgxn()`
 
-Returns the JSON meta data that has to go into the `META.json` file needed for
-[PGXN—PostgreSQL Extension Network](https://pgxn.org/) packages.
+Returns the JSON meta data that has to go into the `META.json` file needed for PGXN—PostgreSQL Extension Network—packages.
 
 The `Makefile` includes a recipe to allow the developer to: `make META.json` to
 refresh the meta file with the function's current output, including the
@@ -131,7 +130,7 @@ Function attributes: `STABLE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `pg_rowalesce_readme()`
 
@@ -139,19 +138,18 @@ Function return type: `text`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
   *  `SET pg_readme.include_view_definitions TO true`
   *  `SET pg_readme.include_routine_definitions_like TO {test__%}`
 
 #### Function: `record_rowalesce_with_defaults (record, anyarray)`
 
-This function could not be named plain `rowalesce_with-defaults()`, because
-Postgres considers `rowalesce_with_defaults(record, variadic anyarray)`
-ambiguous with `rowalesce_with_defaults(variadic anyarray)`.  Also, it doesn't
-add much to calling `rowalesce_with_defaults(hstore, variadic anyarray)`
-directly and feeding it a `hstore(record)`.  Yet, I decided to keep it (for
-    now) for documentation sake.  I may still change my mind in a later release
-(but not any more after 1.0).
+This function could not be named plain `rowalesce_with-defaults()`, because Postgres considers `rowalesce_with_defaults(record, variadic anyarray)` ambiguous with `rowalesce_with_defaults(variadic anyarray)`.
+
+Also, it doesn't add much to calling `rowalesce_with_defaults(hstore, variadic
+anyarray)` directly and feeding it a `hstore(record)`.  Yet, I decided to keep
+it (for now) for documentation sake.  I may still change my mind in a later
+release (but not any more after 1.0).
 
 Function arguments:
 
@@ -165,7 +163,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `rowalesce (anyarray)`
 
@@ -186,7 +184,7 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `rowalesce (anyelement, jsonb)`
 
@@ -204,12 +202,11 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `rowalesce (hstore, anyarray)`
 
-Coalesces the fields in the `hstore` with the field values from each successive
-record-type argument.
+Coalesces the fields in the `hstore` with the field values from each successive record-type argument.
 
 Example:
 
@@ -275,12 +272,11 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `rowalesce (jsonb, anyarray)`
 
-Coalesce the `JSONB` (first) argument with an arbitrary number of
-explicitly-typed record/row arguments.
+Coalesce the `JSONB` (first) argument with an arbitrary number of explicitly-typed record/row arguments.
 
 Example:
 
@@ -306,11 +302,13 @@ Function attributes: `IMMUTABLE`, `LEAKPROOF`, `PARALLEL SAFE`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `rowalesce_with_defaults (anyarray)`
 
-Coalesces the column values in the order of the records given and fall back to column defaults. The argument may be `NULL` (coerced to the correct type) if you just want the column defaults for a table type.
+Coalesces the column values in the order of the records given and falls back to column defaults.
+
+The argument may be `NULL` (coerced to the correct type) if you just want the column defaults for a table type.
 
 Function arguments:
 
@@ -323,7 +321,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `rowalesce_with_defaults (hstore, anyarray)`
 
@@ -339,7 +337,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `rowalesce_with_defaults (jsonb, anyarray)`
 
@@ -355,7 +353,7 @@ Function return type: `anyelement`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Function: `table_defaults (regclass, hstore)`
 
@@ -372,19 +370,19 @@ Function return type: `hstore`
 
 Function-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
 
 #### Procedure: `test__pg_rowalesce()`
 
 Procedure-local settings:
 
-  *  `SET search_path TO rowalesce, public, pg_temp`
+  *  `SET search_path TO rowalesce, rowalesce, pg_temp`
   *  `SET plpgsql.check_asserts TO true`
 
 ```sql
 CREATE OR REPLACE PROCEDURE rowalesce.test__pg_rowalesce()
  LANGUAGE plpgsql
- SET search_path TO 'rowalesce', 'public', 'pg_temp'
+ SET search_path TO 'rowalesce', 'rowalesce', 'pg_temp'
  SET "plpgsql.check_asserts" TO 'true'
 AS $procedure$
 declare

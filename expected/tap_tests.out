@@ -1,5 +1,0 @@
-begin;
-create extension pg_rowalesce cascade;
-NOTICE:  installing required extension "hstore"
-call test__pg_rowalesce();
-rollback;

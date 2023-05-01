@@ -1,0 +1,9 @@
+\set ECHO none
+NOTICE:  CREATE EXTENSION pg_rowalesce WITH VERSION '0.1.0' CASCADE
+NOTICE:  installing required extension "hstore"
+NOTICE:  ALTER EXTENSION pg_rowalesce UPDATE TO '0.1.10'
+NOTICE:  CALL test__pg_rowalesce()
+NOTICE:  DROP EXTENSION pg_rowalesce CASCADE
+NOTICE:  CREATE EXTENSION pg_rowalesce WITH VERSION '0.1.10' CASCADE
+NOTICE:  CALL test__pg_rowalesce()
+NOTICE:  DROP EXTENSION pg_rowalesce CASCADE

@@ -1,4 +1,4 @@
--- Complain if script is sourced in psql, rather than via CREATE EXTENSION.
+-- Complain if script is sourced in `psql`, rather than via `CREATE EXTENSION`.
 \echo Use "CREATE EXTENSION pg_rowalesce" to load this file. \quit
 
 --------------------------------------------------------------------------------------------------------------
@@ -97,6 +97,22 @@ SELECT pg_rowalesce_relocate();
 ## Extension object reference
 
 <?pg-readme-reference context-division-depth="2" context-division-is-self="true" ?>
+
+## Extension authors and contributors
+
+* [Rowan](https://www.bigsmoke.us/) originated this extension in 2022 while
+  developing the PostgreSQL backend for the [FlashMQ SaaS MQTT cloud
+  broker](https://www.flashmq.com/).  Rowan does not like to see himself as a
+  tech person or a tech writer, but, much to his chagrin, [he
+  _is_](https://blog.bigsmoke.us/category/technology). Some of his chagrin
+  about his disdain for the IT industry he poured into a book: [_Why
+  Programming Still Sucks_](https://www.whyprogrammingstillsucks.com/).  Much
+  more than a “tech bro”, he identifies as a garden gnome, fairy and ork rolled
+  into one, and his passion is really to [regreen and reenchant his
+  environment](https://sapienshabitat.com/).  One of his proudest achievements
+  is to be the third generation ecological gardener to grow the wild garden
+  around his beautiful [family holiday home in the forest of Norg, Drenthe,
+  the Netherlands](https://www.schuilplaats-norg.nl/) (available for rent!).
 
 ## Colophon
 
@@ -204,7 +220,7 @@ create function pg_rowalesce_meta_pgxn()
         ,'provides'
         ,('{
             "pg_rowalesce": {
-                "file": "pg_rowalesce--0.1.10.sql",
+                "file": "pg_rowalesce--0.1.11.sql",
                 "version": "' || (
                     select
                         pg_extension.extversion
